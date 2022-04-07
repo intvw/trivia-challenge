@@ -1,0 +1,37 @@
+.board {
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    height: calc(100vh - 170px);
+    overflow-y: scroll;
+}
+
+.board__text {
+    width: 65%;
+    font-size: 1.5em;
+    font-weight: 400;
+}
+
+.board__text-small {
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.board__text-align-center {
+    text-align: center;
+}
+
+details > summary:first-of-type {
+    list-style: inside '\2795';
+}
+
+details[open] > summary:first-of-type {
+    list-style-type: '\2796';
+}
+
+p {
+    margin-left: 15px;
+}

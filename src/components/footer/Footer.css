@@ -1,0 +1,14 @@
+.footer {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer__buttons {
+    width: 150px;
+    font-size: 1.2em;
+    font-weight: 500;
+    background: unset;
+    border: unset;
+}
