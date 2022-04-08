@@ -17,10 +17,6 @@ function App() {
     const [currentAskIndex, setCurrentAskIndex] = useState(0);
     const [hasError, setHasError] = useState(false);
 
-    const difficulty = ['easy', 'medium', 'hard'][
-        Math.floor(Math.random() * 3)
-    ] as Difficulty;
-
     /**
      * side effects
      *
@@ -40,32 +36,30 @@ function App() {
      * per current ask index,
      * if current ask index equals number of questions,
      * then set current ask index to 0 and set stage to end
-     * else set current ask index to current ask index + 1
+     * else set current ask index to current ask index
      */
     useEffect(() => {
         if (asks.length > 0) {
             if (currentAskIndex === asks.length) {
-                onNextStage();
+                goToNextStage();
                 setCurrentAskIndex(0);
+            } else {
+                setCurrentAsk(asks[currentAskIndex]);
             }
-
-            setCurrentAsk(asks[currentAskIndex]);
         }
-    }, [currentAskIndex]);
+    }, [currentAskIndex, asks]); // eslint-disable-line react-hooks/exhaustive-deps
 
     /**
      * go to next stage
-     *
-     * @param {string} currentStage
      */
-    const onNextStage = (currentStage: string = stage) => {
-        if (currentStage === 'start') {
+    const goToNextStage = () => {
+        if (stage === 'start') {
             setStage('during');
             setScore(0);
             setCurrentAsk(asks[currentAskIndex]);
-        } else if (currentStage === 'during') {
+        } else if (stage === 'during') {
             setStage('end');
-        } else if (currentStage === 'end') {
+        } else if (stage === 'end') {
             setStage('start');
             setAnswers([]);
         }
@@ -104,6 +98,10 @@ function App() {
      * @returns {Promise<any>}
      */
     const fetchData = async (): Promise<any> => {
+        const difficulty = ['easy', 'medium', 'hard'][
+            Math.floor(Math.random() * 3)
+        ] as Difficulty;
+
         try {
             const response = await fetchTrivia(difficulty);
             setAsks(response.results);
@@ -133,7 +131,7 @@ function App() {
                     !hasError
                         ? stage === 'during'
                             ? onNextAsk(data as Answer)
-                            : onNextStage(stage)
+                            : goToNextStage()
                         : onRestart();
                 }}
             />

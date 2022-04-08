@@ -51,7 +51,6 @@ const BeginFooter = (props: Pick<Props, 'onClick'>) => (
 const DuringFooter = (props: Pick<Props, 'onClick'>) => (
     <>
         <button
-            aria-label="True"
             tabIndex={0}
             data-testid="true-button"
             className="footer__buttons"
@@ -60,7 +59,6 @@ const DuringFooter = (props: Pick<Props, 'onClick'>) => (
             TRUE
         </button>
         <button
-            aria-label="False"
             data-testid="false-button"
             className="footer__buttons"
             onClick={() => props.onClick('False')}
